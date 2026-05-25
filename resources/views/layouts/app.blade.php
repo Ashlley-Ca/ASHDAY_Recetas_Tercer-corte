@@ -35,7 +35,18 @@
         // Inicializa DataTables sobre la tabla con id="tablaMensajes"
         // cuando el documento HTML haya cargado completamente
         $(document).ready(function() {
-            $('#tablaMensajes').DataTable();
+
+            $('#tablaMensajes').DataTable({
+                language: {
+                url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json'
+                }
+            });
+
+            $('#tablaCategorias').DataTable({
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json'
+                }
+            });
         });
     </script>
 
@@ -217,6 +228,50 @@
         .nav-link:hover::after {
             width: 100%;   /* Se expande de izquierda a derecha al hacer hover */
         }
+        /* ========================================
+              NAVBAR SCROLL RESPONSIVE
+            ======================================== */
+
+            .navbar .navbar-collapse {
+
+                overflow-x: auto;
+
+                scrollbar-width: thin;
+
+                scrollbar-color: #8b5cf6 transparent;
+            }
+
+            /* SCROLL PERSONALIZADO */
+
+            .navbar .navbar-collapse::-webkit-scrollbar {
+
+             height: 6px;
+            }
+
+            .navbar .navbar-collapse::-webkit-scrollbar-track {
+
+              background: transparent;
+            }
+
+            .navbar .navbar-collapse::-webkit-scrollbar-thumb {
+
+                background: linear-gradient(
+                 90deg,
+                 #8b5cf6,
+                 #ec4899
+                );
+
+                 border-radius: 20px;
+            }
+
+                /* EVITA QUE LOS BOTONES BAJEN */
+
+            .navbar-nav {
+
+                 flex-wrap: nowrap !important;
+
+                white-space: nowrap;
+            }
 
         /* ========================================
            HERO PRINCIPAL
@@ -443,9 +498,9 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('recetas') }}">
-                            <i class="bi bi-journal-richtext"></i> Recetas
-                        </a>
+                     <a class="nav-link" href="{{ route('menu') }}">
+                        <i class="bi bi-grid-3x3-gap"></i> Menú
+                     </a>
                     </li>
 
                     <li class="nav-item">
@@ -466,10 +521,10 @@
                         </a>
                     </li>
 
-                    <!-- ==========================================
+                    {{-- ==========================================
                          @guest: bloque visible solo para
                          usuarios NO autenticados (invitados)
-                    ========================================== -->
+                    ========================================== --}}
                     @guest
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('login') }}">
@@ -484,27 +539,80 @@
                         </li>
                     @endguest
 
-                    <!-- ==========================================
+                    {{-- ==========================================
                          @auth: bloque visible solo para
                          usuarios autenticados (con sesión activa)
-                    ========================================== -->
+                    ========================================== --}}
                     @auth
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('dashboard') }}">
-                                <i class="bi bi-speedometer2"></i> Dashboard
-                            </a>
+
+                         <a class="nav-link" href="{{ route('dashboard') }}">
+
+                        <i class="bi bi-speedometer2"></i>
+                         Dashboard
+
+                         </a>
+
                         </li>
 
+                         {{-- Mensajes PQRS --}}
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('mensajes') }}">
-                                <i class="bi bi-chat-dots"></i> Mensajes
-                            </a>
+
+                         <a class="nav-link" href="{{ route('mensajes.index') }}">
+
+                         <i class="bi bi-chat-dots"></i>
+                            Mensajes
+
+                         </a>
+
                         </li>
 
+                            {{-- Ver recetas --}}
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('recetas.crear') }}">
-                                <i class="bi bi-plus-circle"></i> Crear receta
-                            </a>
+
+                         <a class="nav-link" href="{{ route('recetas') }}">
+
+                          <i class="bi bi-journal-richtext"></i>
+                            Recetas
+
+                         </a>
+
+                        </li>
+
+                            {{-- Crear receta --}}
+                        <li class="nav-item">
+
+                         <a class="nav-link" href="{{ route('recetas.crear') }}">
+
+                            <i class="bi bi-plus-circle"></i>
+                            Crear receta
+
+                         </a>
+
+                        </li>
+
+                            {{-- Categorías --}}
+                        <li class="nav-item">
+
+                         <a class="nav-link" href="{{ route('categorias.index') }}">
+
+                            <i class="bi bi-folder2-open"></i>
+                                Categorías
+
+                             </a>
+
+                        </li>
+
+                            {{-- Crear categoría --}}
+                        <li class="nav-item">
+
+                         <a class="nav-link" href="{{ route('categorias.create') }}">
+
+                             <i class="bi bi-folder-plus"></i>
+                            Crear categoría
+
+                         </a>
+
                         </li>
 
                         <!-- Formulario de cierre de sesión -->
@@ -558,30 +666,29 @@
 
     </div>
 
-    <!-- ============================================================
+    {{-- ============================================================
          HEADER OPCIONAL
          Solo se renderiza si la vista hija define una sección 'header'
          con @section('header') ... @endsection
-    ============================================================ -->
+    ============================================================ --}}
 
-    @if(View::hasSection('header'))
-        <div class="container mt-5">
-            <div class="card">
-                @yield('header')
-            </div>
+ @if(View::hasSection('header'))
+    <div class="container mt-5">
+        <div class="card">
+            @yield('header')
         </div>
-    @endif
+    </div>
+@endif
 
-    <!-- ============================================================
+    {{-- ============================================================
          CONTENIDO PRINCIPAL
          @yield('content'): espacio reservado donde cada vista hija
          inyecta su propio contenido con @section('content')
-    ============================================================ -->
+    ============================================================ --}}
 
-    <main class="container py-5">
-        @yield('content')
-    </main>
-
+<main class="container py-5">
+    @yield('content')
+</main>
     <!-- ============================================================
          FOOTER
     ============================================================ -->
@@ -592,8 +699,8 @@
         <p class="mb-0">Creado por Ashlley Alejandra Castro y Dayana Liseth Cuaran</p>
     </footer>
 
-    <!-- Bootstrap JS: necesario para componentes interactivos como el menú colapsable -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Bootstrap JS: necesario para componentes interactivos como el menú colapsable -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 

@@ -43,22 +43,47 @@
                 ============================================================ --}}
                 <div class="d-flex justify-content-center gap-3 flex-wrap">
 
-                    {{-- Acceso directo a la bandeja de mensajes PQRS --}}
-                    <a href="{{ route('mensajes') }}" class="btn btn-receta">
+                        {{-- Mensajes PQRS --}}
+                        <a href="{{ route('mensajes.index') }}"
+                           class="btn btn-receta">
+
                         📩 Ver mensajes PQRS
-                    </a>
 
-                    {{-- Acceso directo al listado de recetas publicadas --}}
-                    <a href="{{ route('recetas') }}" class="btn btn-receta">
+                         </a>
+
+                         {{-- Ver recetas --}}
+                         <a href="{{ route('recetas') }}"
+                             class="btn btn-receta">
+
                         🍽️ Ver recetas
-                    </a>
 
-                    {{-- Acceso directo al formulario de creación de recetas --}}
-                    <a href="{{ route('recetas.crear') }}" class="btn btn-receta">
-                        ➕ Crear receta
-                    </a>
+                         </a>
 
-                </div>
+                         {{-- Crear receta --}}
+                         <a href="{{ route('recetas.crear') }}"
+                            class="btn btn-receta">
+
+                       ➕ Crear receta
+
+                         </a>
+
+                         {{-- Categorías --}}
+                         <a href="{{ route('categorias.index') }}"
+                            class="btn btn-receta">
+
+                        📂 Ver categorías
+
+                         </a>
+
+                         {{-- Crear categoría --}}
+                         <a href="{{ route('categorias.create') }}"
+                           class="btn btn-receta">
+
+                        ➕ Crear categoría
+
+                         </a>
+
+                    </div>
 
             </div>
 
