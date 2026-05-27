@@ -11,12 +11,12 @@ class PqrsController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nombres' => 'required|string|max:100',
-            'apellidos' => 'required|string|max:100',
-            'correo' => 'required|email',
-            'tipo' => 'required|in:Petición,Queja,Reclamo,Sugerencia,Felicitación',
-            'mensaje' => 'required|string',
-            'terminos' => 'accepted'
+          'nombres' => 'required|string|max:100',
+          'apellidos' => 'required|string|max:100',
+          'correo' => 'required|email',
+          'tipo' => 'required|in:Petición,Queja,Reclamo,Sugerencia,Felicitación',
+          'mensaje' => 'required|string',
+          'terminos' => 'accepted'
         ]);
 
         Pqrs::create([
